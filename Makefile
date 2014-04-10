@@ -1,6 +1,3 @@
-# This is a makefile that Heather made. Heather doesn't know a whole lot about
-# makefiles. There should be _great care_ taken when using this makefile. It
-# is dangerous.
 BIN=bin
 SRC=src
 TEST=test/src
