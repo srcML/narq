@@ -1,8 +1,18 @@
+/*
+
+@file tools.cpp
+@brief Storage for various string matching algorithms
+
+@author Drew Guarnera, Heather Michaud
+
+*/
+
 #include "tools.hpp"
 #include <iostream>
 
 namespace narq
 {
+	// --------------------------------------------------------------------- //
 	int bruteForce(std::string textBody, std::string pattern)
 	{
 		int n = textBody.length();
@@ -22,6 +32,13 @@ namespace narq
 				return i-1;        // return beginning index of location
 		}
 		return -1;                 // Else pattern does not exist in the text
+	}
+
+	// --------------------------------------------------------------------- //
+	long rabinKarp(std::string pattern, std::string textBody)
+	{
+		long index = -1;
+		return index;
 	}
 
 }

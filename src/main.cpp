@@ -1,8 +1,18 @@
+/*
+
+@file main.cpp
+@brief Execution point for narq
+
+@author Drew Guarnera, Heather Michaud
+
+*/
+
 #include "tools.hpp"
 #include <iostream>
 
 int main(int argc, const char* argv[])
 {
+
 	std::cerr << narq::bruteForce("testing", "test") << "\n";
 	std::cerr << narq::bruteForce("oval", "circle") << "\n";
 	std::cerr << narq::bruteForce("butterscotch", "scotch") << "\n";
