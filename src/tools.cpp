@@ -1,44 +1,81 @@
 /*
 
-@file tools.cpp
-@brief Storage for various string matching algorithms
-
-@author Drew Guarnera, Heather Michaud
+@copydoc tools.hpp
 
 */
 
 #include "tools.hpp"
 #include <iostream>
 
+const unsigned int BASE = 257;        // reduces collision in hash function
+const unsigned int MOD  = 1000000007; // number of elements in hash table
+
 namespace narq
 {
 	// --------------------------------------------------------------------- //
-	int bruteForce(std::string textBody, std::string pattern)
+	int bruteForce(std::string needle, std::string haystack)
 	{
-		int n = textBody.length();
-		int m = pattern.length();
+		int n = haystack.length();
+		int m = needle.length();
 		bool match = false;
 
-		// Traverse the text body looking for the pattern
+		// Traverse the text body looking for the needle
 		for (int i = 1; i <= n-m+1; ++i) {
 			for (int j = 0; j < m; ++j) {
 				match = true;
-				if (textBody[i+j-1] != pattern[j]) {
+				if (haystack[i+j-1] != needle[j]) {
 					match = false; // Characters were not equal - no match
-					break;         // Break from looping pattern characters
+					break;         // Break from looping needle characters
 				}
 			}
-			if (match)             // If entire pattern matches,
+			if (match)             // If entire patten matches,
 				return i-1;        // return beginning index of location
 		}
 		return -1;                 // Else pattern does not exist in the text
 	}
 
 	// --------------------------------------------------------------------- //
-	long rabinKarp(std::string pattern, std::string textBody)
+	long rabinKarp(std::string needle, std::string haystack)
 	{
-		long index = -1;
-		return index;
+		long long needleHash   = rhash(needle);
+		long long haystackHash = 0;
+		long long power        = 1;
+
+		// power = BASE ^ (size of string to search for)
+		for (int i = 0; i < needle.size(); ++i)
+			power = (power * BASE) % MOD;
+
+		for (int i = 0; i < haystack.size(); ++i)
+		{
+			// Calculate the rolling hash for the haystack
+			haystackHash = haystackHash * BASE + haystack[i];
+			haystackHash = haystackHash % MOD;
+
+			// "Skip", or remove, previous strings from the haystack
+			if (i >= needle.size())
+			{
+				haystackHash -= power * haystack[i - needle.size()] % MOD;
+				if (haystackHash < 0)
+					haystackHash += MOD;
+			}
+
+			// Check if hashes are equal
+			if ((i >= needle.size() - 1) && (haystackHash == needleHash))
+				return i - needle.size() + 1;
+		}
+		return -1;
+	}
+
+	// --------------------------------------------------------------------- //
+	unsigned long long rhash(const std::string & s)
+	{
+		long long ret = 0;
+		for (int i = 0; i < s.size(); ++i)
+		{
+			ret = ret * BASE + s[i];
+			ret = ret % MOD;
+		}
+		return ret;
 	}
 
 }

@@ -9,13 +9,30 @@
 
 #include "tools.hpp"
 #include <iostream>
+#include <iomanip>
 
 int main(int argc, const char* argv[])
 {
 
-	std::cerr << narq::bruteForce("testing", "test") << "\n";
-	std::cerr << narq::bruteForce("oval", "circle") << "\n";
-	std::cerr << narq::bruteForce("butterscotch", "scotch") << "\n";
-	std::cerr << narq::bruteForce("aaaaaaaaaaaaaaaaaaab", "b") << "\n";
+	std::cerr << std::setw(10) << "naive"
+	          << std::setw(15) << "rabin-karp"
+	          << "\n";
+
+	std::cerr << std::setw(10) << narq::bruteForce("test", "testing")
+	          << std::setw(15) << narq::rabinKarp("test", "testing")
+	          << "\n";
+
+	std::cerr << std::setw(10) << narq::bruteForce("circle", "oval")
+	          << std::setw(15) << narq::rabinKarp("circle", "oval")
+	          << "\n";
+
+	std::cerr << std::setw(10) << narq::bruteForce("scotch", "butterscotch")
+	          << std::setw(15) << narq::rabinKarp("scotch", "butterscotch")
+	          << "\n";
+
+	std::cerr << std::setw(10) << narq::bruteForce("b", "aaaaaaaaaaaaaaaaaaab")
+	          << std::setw(15) << narq::rabinKarp("b", "aaaaaaaaaaaaaaaaaaab")
+	          << "\n";
+
 	return 0;
 }
