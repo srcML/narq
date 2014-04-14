@@ -26,7 +26,16 @@ namespace narq
 	//! @param needle The string pattern to search for in the text body
 	//! @param haystack The body of text to search for the pattern in
 	//! @retval The beginning index where the pattern is found in the text body
-	long rabinKarp(std::string needle, std::string haystack);
+	long rabinKarpLV(std::string needle, std::string haystack);
+
+	//! @brief Finds a string in a text body matching a specific pattern using
+	//!  the Rabin-Karp algorithm - Monte Carlo style. Thus, the time complexity
+	//!  is likely polynomial, and the return is gauranteed to be a correct
+	//!  match
+	//! @param needle The string pattern to search for in the text body
+	//! @param haystack The body of text to search for the pattern in
+	//! @retval The beginning index where the pattern is found in the text body
+	long rabinKarpMC(std::string needle, std::string haystack);
 
 	//! @brief Calculates a rolling hash on a string based on each character in
 	//!  the string, using prime base and modular numbers te prevent collisions

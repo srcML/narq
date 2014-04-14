@@ -42,8 +42,9 @@ void timing()
 		std::cerr << "Could not open results file " << outputFile << "\n";
 		return;
 	}
-	output << "naive time (ms), " << "index, "
-	       << "rabin karp (ms), " << "index\n";
+	output << "naive time (ms), "      << "index, "
+	       << "rabin karp - LV (ms), " << "index, "
+	       << "rabin karp - MC (ms), " << "index\n";
 
 	// For varying levels of haystack size (string text body to search in)
 	for (int i = MIN_H; i < MAX_H; i += INCREMENT)
@@ -62,15 +63,22 @@ void timing()
 
 			// Time Las Vegas Rabin Karp algorithm
 			std::clock_t start2 = std::clock();
-			int index2 = narq::rabinKarp(needle, haystack);
+			int index2 = narq::rabinKarpLV(needle, haystack);
 			std::clock_t end2 = std::clock();
+
+			// Time Monte Carlo Rabin Karp algorithm
+			std::clock_t start3 = std::clock();
+			int index3 = narq::rabinKarpMC(needle, haystack);
+			std::clock_t end3 = std::clock();
 
 			// Calculate and output time differences and found index. All
 			// indices should be -1 because the sequence was not found.
 			double msTotal1 = 1000.0 * (end1 - start1) / CLOCKS_PER_SEC;
 			double msTotal2 = 1000.0 * (end2 - start2) / CLOCKS_PER_SEC;
+			double msTotal3 = 1000.0 * (end2 - start2) / CLOCKS_PER_SEC;
 			output << msTotal1 << "," << index1 << ","
-			       << msTotal2 << "," << index2 << "\n";
+			       << msTotal2 << "," << index2 << ","
+			       << msTotal3 << "," << index3 << "\n";
 		}
 	}
 }

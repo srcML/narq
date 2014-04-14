@@ -7,6 +7,10 @@
 #include "tools.hpp"
 #include <iostream>
 
+//! @todo We should change these to be arguments to our functions, or to the
+//!  program, so that we can test the inaccuracy of Las Vegas style and the
+//!  increased time complexity of Monte Carlo style Rabin-Karp when provided
+//!  hash tables with high collision rates
 const unsigned int BASE = 257;        // reduces collision in hash function
 const unsigned int MOD  = 1000000007; // number of elements in hash table
 
@@ -35,7 +39,7 @@ namespace narq
 	}
 
 	// --------------------------------------------------------------------- //
-	long rabinKarp(std::string needle, std::string haystack)
+	long rabinKarpLV(std::string needle, std::string haystack)
 	{
 		long long needleHash   = rhash(needle);
 		long long haystackHash = 0;
@@ -62,6 +66,43 @@ namespace narq
 			// Check if hashes are equal
 			if ((i >= needle.size() - 1) && (haystackHash == needleHash))
 				return i - needle.size() + 1;
+		}
+		return -1;
+	}
+
+	// --------------------------------------------------------------------- //
+	long rabinKarpMC(std::string needle, std::string haystack)
+	{
+		long long needleHash   = rhash(needle);
+		long long haystackHash = 0;
+		long long power        = 1;
+
+		// power = BASE ^ (size of string to search for)
+		for (int i = 0; i < needle.size(); ++i)
+			power = (power * BASE) % MOD;
+
+		for (int i = 0; i < haystack.size(); ++i)
+		{
+			// Calculate the rolling hash for the haystack
+			haystackHash = haystackHash * BASE + haystack[i];
+			haystackHash = haystackHash % MOD;
+
+			// "Skip", or remove, previous strings from the haystack
+			if (i >= needle.size())
+			{
+				haystackHash -= power * haystack[i - needle.size()] % MOD;
+				if (haystackHash < 0)
+					haystackHash += MOD;
+			}
+
+			// Check if hashes are equal
+			if ((i >= needle.size() - 1) && (haystackHash == needleHash))
+			{
+				// Monte Carlo addition: Check that strings are equal before
+				// returning.
+				if (haystack.substr(i - needle.size() + 1, needle.size()) == needle)
+					return i - needle.size() + 1;
+			}
 		}
 		return -1;
 	}
