@@ -75,7 +75,7 @@ void timing()
 			// indices should be -1 because the sequence was not found.
 			double msTotal1 = 1000.0 * (end1 - start1) / CLOCKS_PER_SEC;
 			double msTotal2 = 1000.0 * (end2 - start2) / CLOCKS_PER_SEC;
-			double msTotal3 = 1000.0 * (end2 - start2) / CLOCKS_PER_SEC;
+			double msTotal3 = 1000.0 * (end3 - start3) / CLOCKS_PER_SEC;
 			output << msTotal1 << "," << index1 << ","
 			       << msTotal2 << "," << index2 << ","
 			       << msTotal3 << "," << index3 << "\n";
