@@ -12,61 +12,66 @@
 #include <iostream>
 #include <ctime>
 
-const long long MAX_SEQUENCE = 10000;
 const std::string outputFile = "timing.csv";
 
-//! @brief Generates a string with all values "a". This is used te test the
-//!  worst case scenario
+//! @brief Generates a string with all values of a letter. This is used te test 
+//! the worst case scenario
 //! @param n The length of the string to be generated
-//! @retval Generated sequence of 'a's of length n
-std::string generateString(long long n)
+//! @retval Generated sequence of letters of length n
+std::string generateString(long long n, char letter)
 {
 	std::string sequence = "";
 	for (int i = 0; i < n; ++i)
-		sequence += "a";
+		sequence += letter;
 	return sequence;
 }
 
 //! @brief Executes timing tests on naive and rabin karp algorithm
 void timing()
 {
+	const int MIN_N = 10;     // Minimum needle string size
+	const int MAX_N = 1000;   // Maximum needle string size
+	const int MIN_H = 1000;   // Minimum haystack string size
+	const int MAX_H = 10000;  // Maximum haystack string size
+	const int INCREMENT = 10; // How much the needle & haystack are incremented
+
+	// Open output file and write header column names
 	std::ofstream output(outputFile);
 	if (!output)
 	{
 		std::cerr << "Could not open results file " << outputFile << "\n";
 		return;
 	}
+	output << "naive time (ms), " << "index, "
+	       << "rabin karp (ms), " << "index\n";
 
-	output << "naive time (ms), "
-	       << "index, "
-	       << "rabin karp (ms), "
-	       << "index\n";
-
-	for (int i = 1000; i < MAX_SEQUENCE; i += 10)
+	// For varying levels of haystack size (string text body to search in)
+	for (int i = MIN_H; i < MAX_H; i += INCREMENT)
 	{
-		std::string haystack = generateString(i);
+		std::string haystack = generateString(i, 'a');
 
-		//! @todo We should look into varying sizes of this as well, to show
-		//!  haw this affects the time
-		std::string needle = "b";
+		// For varying levels of needle size (string pattern to search for)
+		for (int j = MIN_N; j < MAX_N; j += INCREMENT)
+		{
+			std::string needle = generateString(j, 'b');
 
-		// Time Naive brute force algorithm
-		std::clock_t start1 = std::clock();
-		int index1 = narq::bruteForce(needle, haystack);
-		std::clock_t end1 = std::clock();
+			// Time Naive brute force algorithm
+			std::clock_t start1 = std::clock();
+			int index1 = narq::bruteForce(needle, haystack);
+			std::clock_t end1 = std::clock();
 
-		// Time Las Vegas Rabin Karp algorithm
-		std::clock_t start2 = std::clock();
-		int index2 = narq::rabinKarp(needle, haystack);
-		std::clock_t end2 = std::clock();
+			// Time Las Vegas Rabin Karp algorithm
+			std::clock_t start2 = std::clock();
+			int index2 = narq::rabinKarp(needle, haystack);
+			std::clock_t end2 = std::clock();
 
-		double msTotal1 = 1000.0 * (end1 - start1) / CLOCKS_PER_SEC;
-		double msTotal2 = 1000.0 * (end2 - start2) / CLOCKS_PER_SEC;
-
-		output << msTotal1 << ","
-		       << index1 << ","
-		       << msTotal2 << ","
-		       << index2 << "\n";
+			// Calculate and output time differences and found index. All
+			// indices should be -1 because the sequence was not found.
+			double msTotal1 = 1000.0 * (end1 - start1) / CLOCKS_PER_SEC;
+			double msTotal2 = 1000.0 * (end2 - start2) / CLOCKS_PER_SEC;
+			output << msTotal1 << "," << index1 << ","
+			       << msTotal2 << "," << index2 << "\n";
+		}
 	}
 }
 
