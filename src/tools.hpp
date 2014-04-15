@@ -42,4 +42,7 @@ namespace narq
 	//! @param s The string to seed the rolling hash
 	//! @retval Hash of the string
 	unsigned long long rhash(const std::string & s);
+
+	void setBase(long long base);
+	void setMod(long long mod);
 }

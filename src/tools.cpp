@@ -7,15 +7,18 @@
 #include "tools.hpp"
 #include <iostream>
 
-//! @todo We should change these to be arguments to our functions, or to the
-//!  program, so that we can test the inaccuracy of Las Vegas style and the
-//!  increased time complexity of Monte Carlo style Rabin-Karp when provided
-//!  hash tables with high collision rates
-const unsigned int BASE = 257;        // reduces collision in hash function
-const unsigned int MOD  = 1000000007; // number of elements in hash table
-
 namespace narq
 {
+	//! @todo We should change these to be arguments to our functions, or to the
+	//!  program, so that we can test the inaccuracy of Las Vegas style and the
+	//!  increased time complexity of Monte Carlo style Rabin-Karp when provided
+	//!  hash tables with high collision rates
+	unsigned int BASE = 257;        // reduces collision in hash function
+	unsigned int MOD  = 1000000007; // number of elements in hash table
+
+	void setBase(long long base) { BASE = base; }
+	void setMod(long long mod) { MOD = mod; }
+
 	// --------------------------------------------------------------------- //
 	int bruteForce(std::string needle, std::string haystack)
 	{
