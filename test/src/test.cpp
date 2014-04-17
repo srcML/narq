@@ -83,8 +83,8 @@ void timing()
 		double msTotal1 = 1000.0 * (end1 - start1) / CLOCKS_PER_SEC;
 		double msTotal2 = 1000.0 * (end2 - start2) / CLOCKS_PER_SEC;
 		double msTotal3 = 1000.0 * (end3 - start3) / CLOCKS_PER_SEC;
-		output << MIN_N        << "," << i
-	           << MAX_BP   << "," << MAX_MP
+		output << MIN_N    << "," << i      << ","
+	           << MAX_BP   << "," << MAX_MP << ","
 		       << msTotal1 << "," << index1 << ","
 		       << msTotal2 << "," << index2 << ","
 		       << msTotal3 << "," << index3 << "\n";
@@ -134,8 +134,8 @@ void timing()
 		double msTotal1 = 1000.0 * (end1 - start1) / CLOCKS_PER_SEC;
 		double msTotal2 = 1000.0 * (end2 - start2) / CLOCKS_PER_SEC;
 		double msTotal3 = 1000.0 * (end3 - start3) / CLOCKS_PER_SEC;
-		output << i        << "," << MAX_H
-		       << MAX_BP   << "," << MAX_MP
+		output << i        << "," << MAX_H  << ","
+		       << MAX_BP   << "," << MAX_MP << ","
 		       << msTotal1 << "," << index1 << ","
 		       << msTotal2 << "," << index2 << ","
 		       << msTotal3 << "," << index3 << "\n";
@@ -183,8 +183,8 @@ void timing()
 		double msTotal1 = 1000.0 * (end1 - start1) / CLOCKS_PER_SEC;
 		double msTotal2 = 1000.0 * (end2 - start2) / CLOCKS_PER_SEC;
 		double msTotal3 = 1000.0 * (end3 - start3) / CLOCKS_PER_SEC;
-		output << MIN_N    << "," << MAX_H
-		       << i        << "," << MAX_MP
+		output << MIN_N    << "," << MAX_H  << ","
+		       << i        << "," << MAX_MP << ","
 		       << msTotal1 << "," << index1 << ","
 		       << msTotal2 << "," << index2 << ","
 		       << msTotal3 << "," << index3 << "\n";
@@ -234,8 +234,8 @@ void timing()
 		double msTotal1 = 1000.0 * (end1 - start1) / CLOCKS_PER_SEC;
 		double msTotal2 = 1000.0 * (end2 - start2) / CLOCKS_PER_SEC;
 		double msTotal3 = 1000.0 * (end3 - start3) / CLOCKS_PER_SEC;
-		output << MIN_N    << "," << MAX_H
-		       << MAX_BP   << "," << i
+		output << MIN_N    << "," << MAX_H  << ","
+		       << MAX_BP   << "," << i      << ","
 		       << msTotal1 << "," << index1 << ","
 		       << msTotal2 << "," << index2 << ","
 		       << msTotal3 << "," << index3 << "\n";
