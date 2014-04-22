@@ -6,6 +6,7 @@
 
 #include "tools.hpp"
 #include <iostream>
+#include <map>
 
 namespace narq
 {
@@ -105,6 +106,51 @@ namespace narq
 				// returning.
 				if (haystack.substr(i - needle.size() + 1, needle.size()) == needle)
 					return i - needle.size() + 1;
+			}
+		}
+		return -1;
+	}
+
+	// --------------------------------------------------------------------- //
+	long rabinKarpSet(std::vector<std::string> needles, std::string haystack)
+	{
+		std::map<long long, int> hneedles;
+		for (int i = 0; i < needles.size(); ++i) {
+			hneedles.insert( std::make_pair<long long, int>(rhash(needles[i]), i));
+		}
+
+		long long haystackHash = 0;
+		long long power        = 1;
+
+		// power = BASE ^ (size of string to search for)
+		for (int i = 0; i < needles[0].size(); ++i)
+			power = (power * BASE) % MOD;
+
+		for (int i = 0; i < haystack.size(); ++i)
+		{
+			// Calculate the rolling hash for the haystack
+			haystackHash = haystackHash * BASE + haystack[i];
+			haystackHash = haystackHash % MOD;
+
+			// "Skip", or remove, previous strings from the haystack
+			if (i >= needles[0].size())
+			{
+				haystackHash -= power * haystack[i - needles[0].size()] % MOD;
+				if (haystackHash < 0)
+					haystackHash += MOD;
+			}
+
+			// Check if hashes are equal
+			if ((i >= needles[0].size() - 1) && (hneedles.find(haystackHash) != hneedles.end()))
+			{
+				// Monte Carlo addition: See if substring is found in set before returning
+				// Check that strings are equal before returning.
+
+				std::string haystackSub = haystack.substr(i - needles[0].size() + 1, needles[0].size());
+				for (int i = 0; i < needles.size(); ++i) {
+					if (haystackSub == needles[i])
+						return i - needles[i].size() + 1;
+				}
 			}
 		}
 		return -1;

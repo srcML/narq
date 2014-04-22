@@ -8,6 +8,7 @@
 */
 
 #include <string>
+#include <vector>
 
 namespace narq
 {
@@ -36,6 +37,9 @@ namespace narq
 	//! @param haystack The body of text to search for the pattern in
 	//! @retval The beginning index where the pattern is found in the text body
 	long rabinKarpMC(std::string needle, std::string haystack);
+
+	//! @brief Finds all k needles in a haystack
+	long rabinKarpSet(std::vector<std::string> needles, std::string haystack);
 
 	//! @brief Calculates a rolling hash on a string based on each character in
 	//!  the string, using prime base and modular numbers te prevent collisions
