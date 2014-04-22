@@ -44,7 +44,7 @@ void timing()
 
 	// --------------------------- Varying haystack size ------------------- //
 	// Open output file and write header column names
-	std::ofstream output(outputFile_hup);
+	std::ofstream output(outputFile_hup.c_str());
 	if (!output)
 	{
 		std::cerr << "Could not open results file " << outputFile_hup << "\n";
@@ -95,7 +95,7 @@ void timing()
 
 	// --------------------------- Varying needle size --------------------- //
 	// Open output file and write header column names
-	output.open(outputFile_nup);
+	output.open(outputFile_nup.c_str());
 	if (!output)
 	{
 		std::cerr << "Could not open results file " << outputFile_nup << "\n";
@@ -146,7 +146,7 @@ void timing()
 
 	// --------------------------- Varying base prime --------------------- //
 	// Open output file and write header column names
-	output.open(outputFile_bup);
+	output.open(outputFile_bup.c_str());
 	if (!output)
 	{
 		std::cerr << "Could not open results file " << outputFile_bup << "\n";
@@ -194,7 +194,7 @@ void timing()
 
 	// --------------------------- Varying mod prime --------------------- //
 	// Open output file and write header column names
-	output.open(outputFile_mup);
+	output.open(outputFile_mup.c_str());
 	if (!output)
 	{
 		std::cerr << "Could not open results file " << outputFile_mup << "\n";

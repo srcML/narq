@@ -49,10 +49,10 @@ namespace narq
 		long long power        = 1;
 
 		// power = BASE ^ (size of string to search for)
-		for (int i = 0; i < needle.size(); ++i)
+		for (size_t i = 0; i < needle.size(); ++i)
 			power = (power * BASE) % MOD;
 
-		for (int i = 0; i < haystack.size(); ++i)
+		for (size_t i = 0; i < haystack.size(); ++i)
 		{
 			// Calculate the rolling hash for the haystack
 			haystackHash = haystackHash * BASE + haystack[i];
@@ -81,10 +81,10 @@ namespace narq
 		long long power        = 1;
 
 		// power = BASE ^ (size of string to search for)
-		for (int i = 0; i < needle.size(); ++i)
+		for (size_t i = 0; i < needle.size(); ++i)
 			power = (power * BASE) % MOD;
 
-		for (int i = 0; i < haystack.size(); ++i)
+		for (size_t i = 0; i < haystack.size(); ++i)
 		{
 			// Calculate the rolling hash for the haystack
 			haystackHash = haystackHash * BASE + haystack[i];
@@ -114,7 +114,7 @@ namespace narq
 	unsigned long long rhash(const std::string & s)
 	{
 		long long ret = 0;
-		for (int i = 0; i < s.size(); ++i)
+		for (size_t i = 0; i < s.size(); ++i)
 		{
 			ret = ret * BASE + s[i];
 			ret = ret % MOD;
