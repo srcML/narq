@@ -49,4 +49,5 @@ namespace narq
 
 	void setBase(long long base);
 	void setMod(long long mod);
+	void multiString(std::vector<std::string>& input);
 }

@@ -7,6 +7,7 @@
 #include "tools.hpp"
 #include <iostream>
 #include <map>
+#include <algorithm>
 
 namespace narq
 {
@@ -19,6 +20,24 @@ namespace narq
 
 	void setBase(long long base) { BASE = base; }
 	void setMod(long long mod) { MOD = mod; }
+
+	// Use this custom sort for multiple input strings by length
+	// helps to keep the comparison of multiple strings efficient
+	bool strLenSort(const std::string& first, const std::string& second) {
+		return first.length() < second.length();
+	}
+
+	void multiString(std::vector<std::string>& inputs) {
+		for (size_t i = 0; i < inputs.size(); ++i) {
+			std::cerr << inputs[i] << "\n";
+		}
+		std::cerr << "SORT!\n";
+		std::sort(inputs.begin(), inputs.end(), strLenSort);
+
+		for (size_t i = 0; i < inputs.size(); ++i) {
+			std::cerr << inputs[i] << "\n";
+		}
+	}
 
 	// --------------------------------------------------------------------- //
 	int bruteForce(std::string needle, std::string haystack)
@@ -115,7 +134,7 @@ namespace narq
 	long rabinKarpSet(std::vector<std::string> needles, std::string haystack)
 	{
 		std::map<long long, int> hneedles;
-		for (int i = 0; i < needles.size(); ++i) {
+		for (size_t i = 0; i < needles.size(); ++i) {
 			hneedles.insert( std::make_pair<long long, int>(rhash(needles[i]), i));
 		}
 
@@ -123,10 +142,10 @@ namespace narq
 		long long power        = 1;
 
 		// power = BASE ^ (size of string to search for)
-		for (int i = 0; i < needles[0].size(); ++i)
+		for (size_t i = 0; i < needles[0].size(); ++i)
 			power = (power * BASE) % MOD;
 
-		for (int i = 0; i < haystack.size(); ++i)
+		for (size_t i = 0; i < haystack.size(); ++i)
 		{
 			// Calculate the rolling hash for the haystack
 			haystackHash = haystackHash * BASE + haystack[i];
@@ -147,7 +166,7 @@ namespace narq
 				// Check that strings are equal before returning.
 
 				std::string haystackSub = haystack.substr(i - needles[0].size() + 1, needles[0].size());
-				for (int i = 0; i < needles.size(); ++i) {
+				for (size_t i = 0; i < needles.size(); ++i) {
 					if (haystackSub == needles[i])
 						return i - needles[i].size() + 1;
 				}

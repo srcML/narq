@@ -281,7 +281,7 @@ void varyModSize() {
 	std::string needle = generateString(MIN_N - 1, 'a');
 	needle += "b";
 
-	for (int i = MIN_MP; i <= MAX_MP; i+=100)
+	for (size_t i = MIN_MP; i <= MAX_MP; i+=100)
 	{
 		int percentComplete = (i / (double) MAX_MP) * 100;
 		std::cout << "Testing varying mod size: " << percentComplete << "%" << "\r";

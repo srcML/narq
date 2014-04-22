@@ -10,6 +10,8 @@
 #include "tools.hpp"
 #include <iostream>
 #include <iomanip>
+#include <vector>
+#include <string>
 
 int main(int argc, const char* argv[])
 {
@@ -40,7 +42,9 @@ int main(int argc, const char* argv[])
 	          << "\n";
 
 	std::cerr << "=======================================\n";
+	
 	std::vector<std::string> needles;
+	
 	needles.push_back("aaa");
 	needles.push_back("bbb");
 	needles.push_back("ccc");
