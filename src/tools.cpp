@@ -144,6 +144,10 @@ namespace narq
 			hn[i] = rhash(needles[i]);
 		}
 
+		// power = BASE ^ (size of string to search for)
+		for (size_t i = 0; i < needles[0].size(); ++i)
+			power = (power * BASE) % MOD;
+
 		for (size_t i = 0; i < haystack.size(); ++i)
 		{
 			if (i >= m - 1) {
@@ -158,6 +162,10 @@ namespace narq
 			// "Skip", or remove, previous strings from the haystack
 			if (i >= m)
 			{
+				haystackHash -= power * haystack[i - m] % MOD;
+				if (haystackHash < 0)
+					haystackHash += MOD;
+
 				// Check if hashes are equal
 				for (int k = 0; k < numNeedles; ++k) 
 				{
@@ -176,10 +184,6 @@ namespace narq
 						std::cerr << "\t\tMatches pattern: " << needles[k] << "\n";
 					}
 				}
-
-				haystackHash -= power * haystack[i - m] % MOD;
-				if (haystackHash < 0)
-					haystackHash += MOD;
 
 			}
 		}
