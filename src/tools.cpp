@@ -131,6 +131,67 @@ namespace narq
 	}
 
 	// --------------------------------------------------------------------- //
+	void rabinKarpMulti(std::string needles[], std::string haystack) {
+		int numNeedles = 4; // (sizeof(needles)/sizeof(*needles));
+		std::cerr << "Have " << numNeedles << " total needles. \n";
+		long long hn[numNeedles];
+		long long haystackHash = 0;
+		long long power        = 1;
+
+		// Compute hash for each needle
+		int m = needles[0].size();
+		for (int i = 0; i < numNeedles; ++i) {
+			hn[i] = rhash(needles[i]);
+		}
+
+		for (size_t i = 0; i < haystack.size(); ++i)
+		{
+			if (i >= m - 1) {
+				std::cerr << "Checking haystack substring: " 
+			    	      << haystack.substr(i - m + 1, m) << "\n";
+			}
+
+			// Calculate the rolling hash for the haystack
+			haystackHash = haystackHash * BASE + haystack[i];
+			haystackHash = haystackHash % MOD;
+
+			// "Skip", or remove, previous strings from the haystack
+			if (i >= m)
+			{
+				// Check if hashes are equal
+				for (int k = 0; k < numNeedles; ++k) 
+				{
+					std::cerr << "\tChecking needle: '" << needles[k] 
+					          << "' against '" << haystack.substr(i - m + 1, m) << "'\n";
+					if (haystack.substr(i - m + 1, m) == needles[k]) {
+						std::cerr << "\t\tCHEAT: Found a match at haystack index: " << i << "\n";
+						std::cerr << "\t\tHaystack hash: " << haystackHash << "\n";
+						std::cerr << "\t\tNeedle hash: " << hn[k] << "\n";
+					}
+					if (hn[k] == haystackHash && 
+						haystack.substr(i - m + 1, m) == needles[k]) 
+					{
+						//addMatch(k, (int) i);
+						std::cerr << "\t\tFound a match at haystack index: " << i << "\n";
+						std::cerr << "\t\tMatches pattern: " << needles[k] << "\n";
+					}
+				}
+
+				haystackHash -= power * haystack[i - m] % MOD;
+				if (haystackHash < 0)
+					haystackHash += MOD;
+
+			}
+		}
+		std::cerr << "End multi" << "\n";
+	}
+
+	void addMatch(int needleNumber, int haystackIndex) {
+
+	}
+
+
+	// --------------------------------------------------------------------- //
 	long rabinKarpSet(std::vector<std::string> needles, std::string haystack)
 	{
 		std::map<long long, int> hneedles;
@@ -174,6 +235,8 @@ namespace narq
 		}
 		return -1;
 	}
+
+	// --------------------------------------------------------------------- //
 
 	// --------------------------------------------------------------------- //
 	unsigned long long rhash(const std::string & s)

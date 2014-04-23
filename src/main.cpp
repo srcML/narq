@@ -51,7 +51,7 @@ int main(int argc, const char* argv[])
 	needles.push_back("eee");
 
 	std::string haystack = "aabbcc ccc bbb aaa";
-	std::cerr << std::setw(20) << haystack
+	std::cerr << std::left << std::setw(20) << haystack
 	          << std::setw(5)  << narq::rabinKarpSet(needles, haystack) << "\n";
 
 	haystack = "aaa";
@@ -69,6 +69,31 @@ int main(int argc, const char* argv[])
 	haystack = "abc abc abc d eee";
 	std::cerr << std::setw(20) << haystack
 	          << std::setw(5)  << narq::rabinKarpSet(needles, haystack) << "\n";
+
+	std::cerr << "=======================================\n";
+
+	std::string needlesA[4] = {"aaa", "bbb", "ccc", "eee"};
+
+	haystack = "abc aaa bbb ccc ddd eee abc";
+	std::cerr << std::setw(20) << haystack << "\n";
+	narq::rabinKarpMulti(needlesA, haystack);
+	std::cerr << "\n";
+
+	haystack = "aaa";
+	std::cerr << std::setw(20) << haystack << "\n";
+	narq::rabinKarpMulti(needlesA, haystack);
+	std::cerr << "\n";
+
+	haystack = "ddddddd";
+	std::cerr << std::setw(20) << haystack << "\n";
+	narq::rabinKarpMulti(needlesA, haystack);
+	std::cerr << "\n";
+
+	haystack = "abc abc abc d eee";
+	std::cerr << std::setw(20) << haystack << "\n";
+	narq::rabinKarpMulti(needlesA, haystack);
+	std::cerr << "\n";
+
 
 	return 0;
 }
