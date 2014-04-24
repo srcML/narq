@@ -21,24 +21,6 @@ namespace narq
 	void setBase(long long base) { BASE = base; }
 	void setMod(long long mod) { MOD = mod; }
 
-	// Use this custom sort for multiple input strings by length
-	// helps to keep the comparison of multiple strings efficient
-	bool strLenSort(const std::string& first, const std::string& second) {
-		return first.length() < second.length();
-	}
-
-	void multiString(std::vector<std::string>& inputs) {
-		for (size_t i = 0; i < inputs.size(); ++i) {
-			std::cerr << inputs[i] << "\n";
-		}
-		std::cerr << "SORT!\n";
-		std::sort(inputs.begin(), inputs.end(), strLenSort);
-
-		for (size_t i = 0; i < inputs.size(); ++i) {
-			std::cerr << inputs[i] << "\n";
-		}
-	}
-
 	// --------------------------------------------------------------------- //
 	int bruteForce(std::string needle, std::string haystack)
 	{
@@ -144,7 +126,7 @@ namespace narq
 		long long power        = 1;
 
 		// Compute hash for each needle
-		int m = needles[0].size();
+		size_t m = needles[0].size();
 		for (int i = 0; i < numNeedles; ++i) {
 			hn[i] = rhash(needles[i]);
 		}
