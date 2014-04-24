@@ -131,8 +131,13 @@ namespace narq
 	}
 
 	// --------------------------------------------------------------------- //
-	void rabinKarpMulti(std::string needles[], std::string haystack) {
-		int numNeedles = 4; // (sizeof(needles)/sizeof(*needles));
+	std::vector<int> rabinKarpMulti(std::string needles[], std::string haystack, int numNeedles) {
+		//int numNeedles = 4; // (sizeof(needles)/sizeof(*needles));
+
+		std::vector<int> matches(numNeedles);
+		for (int i = 0; i < numNeedles; ++i)
+			matches.push_back(0);
+
 		std::cerr << "Have " << numNeedles << " total needles. \n";
 		long long hn[numNeedles];
 		long long haystackHash = 0;
@@ -182,12 +187,14 @@ namespace narq
 						//addMatch(k, (int) i);
 						std::cerr << "\t\tFound a match at haystack index: " << i << "\n";
 						std::cerr << "\t\tMatches pattern: " << needles[k] << "\n";
+						matches[k]++;
 					}
 				}
 
 			}
 		}
 		std::cerr << "End multi" << "\n";
+		return matches;
 	}
 
 	void addMatch(int needleNumber, int haystackIndex) {

@@ -72,28 +72,54 @@ int main(int argc, const char* argv[])
 
 	std::cerr << "=======================================\n";
 
+	int numNeedles = 4;
 	std::string needlesA[4] = {"aaa", "bbb", "ccc", "eee"};
+
 
 	haystack = "abc aaa bbb ccc ddd eee abc";
 	std::cerr << std::setw(20) << haystack << "\n";
-	narq::rabinKarpMulti(needlesA, haystack);
+	std::vector<int> result = narq::rabinKarpMulti(needlesA, haystack, numNeedles);
+	std::cerr << "========= Matches ========\n";
+	for (int i = 0; i < numNeedles; ++i) {
+		std::cout << std::right << std::setw(15) << needlesA[i] << ":"
+		          << std::left << std::setw(15) << result[i] << "\n";
+	}
 	std::cerr << "\n";
 
 	haystack = "aaa";
 	std::cerr << std::setw(20) << haystack << "\n";
-	narq::rabinKarpMulti(needlesA, haystack);
+	result = narq::rabinKarpMulti(needlesA, haystack, numNeedles);
+	std::cerr << "========= Matches ========\n";
+	for (int i = 0; i < numNeedles; ++i) {
+		std::cout << std::right << std::setw(15) << needlesA[i] << ":"
+		          << std::left << std::setw(15) << result[i] << "\n";
+	}
 	std::cerr << "\n";
 
 	haystack = "ddddddd";
 	std::cerr << std::setw(20) << haystack << "\n";
-	narq::rabinKarpMulti(needlesA, haystack);
+	result = narq::rabinKarpMulti(needlesA, haystack, numNeedles);
+	std::cerr << "========= Matches ========\n";
+	for (int i = 0; i < numNeedles; ++i) {
+		std::cout << std::right << std::setw(15) << needlesA[i] << ":"
+		          << std::left << std::setw(15) << result[i] << "\n";
+	}
 	std::cerr << "\n";
 
 	haystack = "abc abc abc d eee";
 	std::cerr << std::setw(20) << haystack << "\n";
-	narq::rabinKarpMulti(needlesA, haystack);
+	result = narq::rabinKarpMulti(needlesA, haystack, numNeedles);
+	std::cerr << "========= Matches ========\n";
+	for (int i = 0; i < numNeedles; ++i) {
+		std::cout << std::right << std::setw(15) << needlesA[i] << ":"
+		          << std::left << std::setw(15) << result[i] << "\n";
+	}
 	std::cerr << "\n";
 
+	std::cerr << "=======================================\n";
+	std::cerr << "Maximum size of string: ";
+	std::string longString = "abcdefghijklmnopqrstuvwxyz";
+	std::cerr << longString.max_size() << "\n";
 
 	return 0;
 }

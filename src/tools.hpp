@@ -40,7 +40,7 @@ namespace narq
 
 	//! @brief Finds all k needles in a haystack
 	long rabinKarpSet(std::vector<std::string> needles, std::string haystack);
-	void rabinKarpMulti(std::string needles[], std::string haystack);
+	std::vector<int> rabinKarpMulti(std::string needles[], std::string haystack, int numNeedles);
 
 	//! @brief Calculates a rolling hash on a string based on each character in
 	//!  the string, using prime base and modular numbers te prevent collisions
