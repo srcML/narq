@@ -96,7 +96,7 @@ namespace narq
 	}
 
 	// --------------------------------------------------------------------- //
-	std::vector<int> rabinKarpMulti(std::string needles[], std::string haystack, int numNeedles)
+	std::vector<int> rabinKarpMulti(std::vector<std::string>& needles, std::string haystack, int numNeedles)
 	{
 		// Initialize to 0 matches for each needle
 		std::vector<int> matches(numNeedles);

@@ -37,7 +37,7 @@ namespace narq
 	//! @param numNeedles The number of needles to search for
 	//! @retval A vector containing the number of matches found for each needle, corresponding to 
 	//! the original index of the needle in the needles array
-	std::vector<int> rabinKarpMulti(std::string needles[], std::string haystack,
+	std::vector<int> rabinKarpMulti(std::vector<std::string>& needle, std::string haystack,
 	                                int numNeedles);
 
 	//! @brief Calculates a rolling hash on a string based on each character in the string, using 

@@ -44,7 +44,7 @@ int main(int argc, const char* argv[])
 		return 2;
 	}
 
-	std::ifstream inputHaystack(fHaystack, std::ios::in | std::ios::binary);
+	std::ifstream inputHaystack(fHaystack.c_str(), std::ios::in | std::ios::binary);
 	if (!inputHaystack)
 	{
 		std::cerr << "Could not open haystack text file: " << fHaystack << "\n";
@@ -117,7 +117,8 @@ void debug()
 	
 	std::cerr << "\n=======================================\n";
 	int numNeedles = 4;
-	std::string needlesA[4] = {"aaa", "bbb", "ccc", "eee"};
+	std::string needles[4] = {"aaa", "bbb", "ccc", "eee"};
+	std::vector<std::string> needlesA (needles, needles + sizeof(needles) / sizeof(needles[0]) );
 
 	std::string haystack = "abc aaa bbb ccc ddd eee abc";
 	std::cerr << std::setw(20) << haystack << "\n";
