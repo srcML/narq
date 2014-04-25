@@ -7,6 +7,7 @@
 #include "tools.hpp"
 #include <iostream>
 #include <iomanip>
+#include <sstream>
 #include <fstream>
 #include <vector>
 #include <string>
@@ -41,16 +42,54 @@ int main(int argc, const char* argv[])
 		return 2;
 	}
 
-	std::ifstream inputHaystack(fHaystack.c_str());
+	std::ifstream inputHaystack(fHaystack, std::ios::in | std::ios::binary);
 	if (!inputHaystack)
 	{
 		std::cerr << "Could not open haystack text file: " << fHaystack << "\n";
 		return 2;
 	}
 
-
+	std::vector<std::string> vNeedles;
+	std::string temp;
+	int numNeedles = 0;
+	while (getline(inputNeedle, temp)) {
+		vNeedles.push_back(temp);
+		++numNeedles;
+	}
+	//std::string needles[(const int) numNeedles ];
+	//std::copy(vNeedles.begin(), vNeedles.end(), needles);
 	inputNeedle.close();
-	inputHaystack.close();
+
+	// Read entirue haystack file into the haystack string.
+	std::string haystack;
+    inputHaystack.seekg(0, std::ios::end);
+    haystack.resize(inputHaystack.tellg());
+    inputHaystack.seekg(0, std::ios::beg);
+    inputHaystack.read(&haystack[0], haystack.size());
+    inputHaystack.close();
+
+	if (approach == "-naive")
+	{
+		// Use brute force algorithm
+		std::cout << "Using naive, brute force approach.\n";
+	}
+	else if (approach == "-montecarlo")
+	{
+		// Use monte carlo multi
+		std::cout << "Using Rabin-Karp Monte-Carlo approach.\n";
+	}
+	else if (approach == "-lasvegas")
+	{
+		// Use las vegas multi
+		std::cout << "Using Rabin-Karp Las Vegas approach.\n";
+	}
+	else
+	{
+		std::cerr << "Invalid arguments. Expected: \n";
+		std::cerr << expectedInput;
+		return 1;
+	}
+
 	return 0;
 }
 
