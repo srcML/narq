@@ -18,7 +18,7 @@ std::string expectedInput = "narq -[naive|montecarlo|lasvegas] <needle.txt> <hay
 "needle. The Rabin Karp Monte-Carlo and Las-Vegas approaches can accept multiple needles, which " \
 "are separated by a new line character. The third argument is a text file whose content is the "  \
 "body of text that the needles are searched for.\n\n"\
-"narq [-copy] <original.txt> <copy.txt> <percentage_to_check>\n";
+"narq [-copy] <original.txt> <copy.txt> <number of partitions>\n";
 
 //! @brief Executes visual tests for brute force and various Rabin Karp algorithms
 void debug();
@@ -27,7 +27,7 @@ int main(int argc, const char* argv[])
 {
 	//debug();
 	
-	if (argc != 4) {
+	if (argc < 4 || argc > 5) {
 		std::cerr << "Invalid arguments. Expected: \n";
 		std::cerr << expectedInput;
 		return 1;
@@ -37,50 +37,61 @@ int main(int argc, const char* argv[])
 	std::string fNeedle   = argv[2];
 	std::string fHaystack = argv[3];
 
-	std::ifstream inputNeedle(fNeedle.c_str());
-	if (!inputNeedle)
+	if (argc == 4)
 	{
-		std::cerr << "Could not open needle text file: " << fNeedle << "\n";
-		return 2;
-	}
+		std::ifstream inputNeedle(fNeedle.c_str());
+		if (!inputNeedle)
+		{
+			std::cerr << "Could not open needle text file: " << fNeedle << "\n";
+			return 2;
+		}
 
-	std::ifstream inputHaystack(fHaystack.c_str(), std::ios::in | std::ios::binary);
-	if (!inputHaystack)
-	{
-		std::cerr << "Could not open haystack text file: " << fHaystack << "\n";
-		return 2;
-	}
+		std::ifstream inputHaystack(fHaystack.c_str(), std::ios::in | std::ios::binary);
+		if (!inputHaystack)
+		{
+			std::cerr << "Could not open haystack text file: " << fHaystack << "\n";
+			return 2;
+		}
 
-	inputNeedle.close();
+		inputNeedle.close();
 
-	// Read entirue haystack file into the haystack string.
-	std::string haystack;
-	inputHaystack.seekg(0, std::ios::end);
-	haystack.resize(inputHaystack.tellg());
-	inputHaystack.seekg(0, std::ios::beg);
-	inputHaystack.read(&haystack[0], haystack.size());
-	inputHaystack.close();
+		// Read entirue haystack file into the haystack string.
+		std::string haystack;
+		inputHaystack.seekg(0, std::ios::end);
+		haystack.resize(inputHaystack.tellg());
+		inputHaystack.seekg(0, std::ios::beg);
+		inputHaystack.read(&haystack[0], haystack.size());
+		inputHaystack.close();
 
-	if (approach == "-naive")
-	{
-		// Use brute force algorithm
-		std::cout << "Using naive, brute force approach.\n";
-	}
-	else if (approach == "-montecarlo")
-	{
-		// Use monte carlo multi
-		std::cout << "Using Rabin-Karp Monte-Carlo approach.\n";
-	}
-	else if (approach == "-lasvegas")
-	{
-		// Use las vegas multi
-		std::cout << "Using Rabin-Karp Las Vegas approach.\n";
+		if (approach == "-naive")
+		{
+			// Use brute force algorithm
+			std::cout << "Using naive, brute force approach.\n";
+		}
+		else if (approach == "-montecarlo")
+		{
+			// Use monte carlo multi
+			std::cout << "Using Rabin-Karp Monte-Carlo approach.\n";
+		}
+		else if (approach == "-lasvegas")
+		{
+			// Use las vegas multi
+			std::cout << "Using Rabin-Karp Las Vegas approach.\n";
+		}
+		else
+		{
+			std::cerr << "Invalid arguments. Expected: \n";
+			std::cerr << expectedInput;
+			return 1;
+		}
 	}
 	else
 	{
-		std::cerr << "Invalid arguments. Expected: \n";
-		std::cerr << expectedInput;
-		return 1;
+		int numNeedles = 0;
+		std::stringstream ss;
+		ss << argv[4];
+		ss >> numNeedles;
+
 	}
 
 	return 0;
