@@ -7,16 +7,50 @@
 #include "tools.hpp"
 #include <iostream>
 #include <iomanip>
+#include <fstream>
 #include <vector>
 #include <string>
+
+std::string expectedInput = "narq -[naive|montecarlo|lasvegas] <needle.txt> <haystack.txt>\n\n"  \
+"The first argument provides the apprach used to searh for a pattern. The second argument gives "\
+"is a text file where the needle or needles are read in. The naive approach only accepts one "   \
+"needle. The Rabin Karp Monte-Carlo and Las-Vegas approaches can accept multiple needles, which "\
+"are separated by a new line character. The third argument is a text file whose content is the " \
+"body of text that the needles are searched for.\n\n";
 
 //! @brief Executes visual tests for brute force and various Rabin Karp algorithms
 void debug();
 
 int main(int argc, const char* argv[])
 {
-	debug();
+	//debug();
+	if (argc != 4) {
+		std::cerr << "Invalid arguments. Expected: \n";
+		std::cerr << expectedInput;
+		return 1;
+	}
 
+	std::string approach  = argv[1];
+	std::string fNeedle   = argv[2];
+	std::string fHaystack = argv[3];
+
+	std::ifstream inputNeedle(fNeedle.c_str());
+	if (!inputNeedle)
+	{
+		std::cerr << "Could not open needle text file: " << fNeedle << "\n";
+		return 2;
+	}
+
+	std::ifstream inputHaystack(fHaystack.c_str());
+	if (!inputHaystack)
+	{
+		std::cerr << "Could not open haystack text file: " << fHaystack << "\n";
+		return 2;
+	}
+
+
+	inputNeedle.close();
+	inputHaystack.close();
 	return 0;
 }
 
