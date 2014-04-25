@@ -12,12 +12,13 @@
 #include <vector>
 #include <string>
 
-std::string expectedInput = "narq -[naive|montecarlo|lasvegas] <needle.txt> <haystack.txt>\n\n"  \
-"The first argument provides the apprach used to searh for a pattern. The second argument gives "\
-"is a text file where the needle or needles are read in. The naive approach only accepts one "   \
-"needle. The Rabin Karp Monte-Carlo and Las-Vegas approaches can accept multiple needles, which "\
-"are separated by a new line character. The third argument is a text file whose content is the " \
-"body of text that the needles are searched for.\n\n";
+std::string expectedInput = "narq -[naive|montecarlo|lasvegas] <needle.txt> <haystack.txt>\n"   \
+"The first argument provides the apprach used to search for a pattern. The second argument gives "\
+"is a text file where the needle or needles are read in. The naive approach only accepts one "    \
+"needle. The Rabin Karp Monte-Carlo and Las-Vegas approaches can accept multiple needles, which " \
+"are separated by a new line character. The third argument is a text file whose content is the "  \
+"body of text that the needles are searched for.\n\n"\
+"narq [-copy] <original.txt> <copy.txt> <percentage_to_check>\n";
 
 //! @brief Executes visual tests for brute force and various Rabin Karp algorithms
 void debug();
@@ -25,6 +26,7 @@ void debug();
 int main(int argc, const char* argv[])
 {
 	//debug();
+	
 	if (argc != 4) {
 		std::cerr << "Invalid arguments. Expected: \n";
 		std::cerr << expectedInput;
@@ -49,24 +51,15 @@ int main(int argc, const char* argv[])
 		return 2;
 	}
 
-	std::vector<std::string> vNeedles;
-	std::string temp;
-	int numNeedles = 0;
-	while (getline(inputNeedle, temp)) {
-		vNeedles.push_back(temp);
-		++numNeedles;
-	}
-	//std::string needles[(const int) numNeedles ];
-	//std::copy(vNeedles.begin(), vNeedles.end(), needles);
 	inputNeedle.close();
 
 	// Read entirue haystack file into the haystack string.
 	std::string haystack;
-    inputHaystack.seekg(0, std::ios::end);
-    haystack.resize(inputHaystack.tellg());
-    inputHaystack.seekg(0, std::ios::beg);
-    inputHaystack.read(&haystack[0], haystack.size());
-    inputHaystack.close();
+	inputHaystack.seekg(0, std::ios::end);
+	haystack.resize(inputHaystack.tellg());
+	inputHaystack.seekg(0, std::ios::beg);
+	inputHaystack.read(&haystack[0], haystack.size());
+	inputHaystack.close();
 
 	if (approach == "-naive")
 	{
