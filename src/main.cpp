@@ -25,9 +25,8 @@ void debug();
 
 int main(int argc, const char* argv[])
 {
-	debug();
+	//debug();
 	
-	/*
 	if (argc < 4 || argc > 5) {
 		std::cerr << "Invalid arguments. Expected: \n";
 		std::cerr << expectedInput;
@@ -93,8 +92,52 @@ int main(int argc, const char* argv[])
 		ss << argv[4];
 		ss >> numNeedles;
 
+		std::ifstream inputNeedle(fNeedle.c_str());
+		if (!inputNeedle)
+		{
+			std::cerr << "Could not open original text file: " << fNeedle << "\n";
+			return 2;
+		}
+
+
+		std::ifstream inputHaystack(fHaystack.c_str(), std::ios::in | std::ios::binary);
+		if (!inputHaystack)
+		{
+			std::cerr << "Could not open suspected copied text file: " << fHaystack << "\n";
+			return 2;
+		}
+
+		std::string needle;
+		inputNeedle.seekg(0, std::ios::end);
+		needle.resize(inputNeedle.tellg());
+		inputNeedle.seekg(0, std::ios::beg);
+		inputNeedle.read(&needle[0], needle.size());
+		inputNeedle.close();
+
+		std::vector<std::string> needles = narq::partition(needle, numNeedles);
+
+		// Read entirue haystack file into the haystack string.
+		std::string haystack;
+		inputHaystack.seekg(0, std::ios::end);
+		haystack.resize(inputHaystack.tellg());
+		inputHaystack.seekg(0, std::ios::beg);
+		inputHaystack.read(&haystack[0], haystack.size());
+		inputHaystack.close();
+
+		std::cout << "Detecting plagiarism using " << numNeedles << " partitions...\n";
+		std::vector<int> matches = narq::rabinKarpMulti(needles, haystack, numNeedles);
+
+		int totalMatches = 0;
+		for (int i = 0; i < numNeedles; ++i)
+		{
+			//std::cout << std::right << std::setw(15) << needles[i] << ":"
+		    //          << std::left << std::setw(15) << matches[i] << "\n";
+			totalMatches += matches[i];
+		}
+		std::cout << "Total matches: " << totalMatches << "\n";
+
 	}
-	*/
+
 	return 0;
 }
 
