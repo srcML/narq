@@ -25,8 +25,9 @@ void debug();
 
 int main(int argc, const char* argv[])
 {
-	//debug();
+	debug();
 	
+	/*
 	if (argc < 4 || argc > 5) {
 		std::cerr << "Invalid arguments. Expected: \n";
 		std::cerr << expectedInput;
@@ -93,7 +94,7 @@ int main(int argc, const char* argv[])
 		ss >> numNeedles;
 
 	}
-
+	*/
 	return 0;
 }
 
@@ -174,6 +175,19 @@ void debug()
 	std::cerr << "=======================================\n";
 	std::cerr << "Maximum size of string: ";
 	std::string longString = "abcdefghijklmnopqrstuvwxyz";
-	std::cerr << longString.max_size() << "\n";
+	std::cerr << longString.max_size() << "\n\n";
+
+	std::cerr << "=======================================\n";
+	std::cerr << "Partitioning... \n";
+	std::string s = "Here is a long string that should be partitioned. Wowee I'm a long string!";
+	for (int i = 1; i <= 10; ++i) {
+		std::cerr << "\nNumber of partitions = " << i << "\n";
+		std::vector<std::string> res = narq::partition(s, i);
+		std::cerr << "Partitions are: \n";
+		for (int j = 0; j < res.size(); ++j) {
+			std::cerr << "\t" << j << ": " << res[j] << "\n";
+		}
+		res.clear();
+	}
 }
 

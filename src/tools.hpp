@@ -45,4 +45,10 @@ namespace narq
 	//! @param s The string to seed the rolling hash
 	//! @retval Hash of the string
 	unsigned long long rhash(const std::string & s);
+
+	//! @brief Partitions a given string into a specified number of pieces
+	//! @param s The string to be partitioned
+	//! @param numPartitions The number of partitions to slice s into
+	//! @retval A vector of string partitions
+	std::vector<std::string> partition(std::string &s, int numPartitions);
 }

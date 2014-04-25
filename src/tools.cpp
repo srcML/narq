@@ -152,4 +152,17 @@ namespace narq
 		return ret;
 	}
 
+	std::vector<std::string> partition(std::string &s, int numPartitions)
+	{
+		std::vector<std::string> needles;
+		int m = s.size();
+		int n = m / numPartitions;
+		for (int i = 0; (i+n) <= m; i += n)
+		{
+			std::string needle = s.substr(i, n);
+			needles.push_back(needle);
+		}
+		return needles;
+	}
+
 }
