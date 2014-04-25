@@ -124,20 +124,19 @@ int main(int argc, const char* argv[])
 		inputHaystack.read(&haystack[0], haystack.size());
 		inputHaystack.close();
 
-		std::cout << "Detecting plagiarism using " << numNeedles << " partitions...\n";
+		std::cout << "\nDetecting plagiarism using " << numNeedles << " partitions...\n";
 		std::vector<int> matches = narq::rabinKarpMulti(needles, haystack, numNeedles);
 
 		int totalMatches = 0;
 		for (int i = 0; i < numNeedles; ++i)
 		{
-			//std::cout << std::right << std::setw(15) << needles[i] << ":"
-		    //          << std::left << std::setw(15) << matches[i] << "\n";
+			std::cout << std::left << std::setw(35) << needles[i] << " : "
+		              << std::setw(15) << matches[i] << "\n";
 			totalMatches += matches[i];
 		}
 		std::cout << "Total matches: " << totalMatches << "\n";
 
 	}
-
 	return 0;
 }
 
@@ -194,6 +193,7 @@ void debug()
 		          << std::left << std::setw(15) << result[i] << "\n";
 	}
 	std::cerr << "\n";
+
 
 	haystack = "ddddddd";
 	std::cerr << std::setw(20) << haystack << "\n";

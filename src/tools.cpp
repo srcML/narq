@@ -123,11 +123,14 @@ namespace narq
 			haystackHash = haystackHash % MOD;
 
 			// "Skip", or remove, previous strings from the haystack
-			if (i >= m)
+			if (i >= m - 1)
 			{
-				haystackHash -= power * haystack[i - m] % MOD;
-				if (haystackHash < 0)
-					haystackHash += MOD;
+				if (i >= m) 
+				{
+					haystackHash -= power * haystack[i - m] % MOD;
+					if (haystackHash < 0)
+						haystackHash += MOD;
+				}
 
 				// Check if hashes are equal
 				for (int k = 0; k < numNeedles; ++k) 
