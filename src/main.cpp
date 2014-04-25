@@ -237,7 +237,7 @@ void debug()
 		std::cerr << "\nNumber of partitions = " << i << "\n";
 		std::vector<std::string> res = narq::partition(s, i);
 		std::cerr << "Partitions are: \n";
-		for (int j = 0; j < res.size(); ++j) {
+		for (size_t j = 0; j < res.size(); ++j) {
 			std::cerr << "\t" << j << ": " << res[j] << "\n";
 		}
 		res.clear();
