@@ -132,7 +132,7 @@ namespace narq
 				// Check if hashes are equal
 				for (int k = 0; k < numNeedles; ++k) 
 				{
-					if (hn[k] == haystackHash && haystack.substr(i - m + 1, m) == needles[k])
+					if (hn[k] == haystackHash)
 						matches[k]++;
 				}
 
