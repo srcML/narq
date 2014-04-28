@@ -43,7 +43,7 @@ Run the application using:
 ./bin/narq
 ```
 
-See above argument patterns
+_See above argument patterns_
 
 Run the test suite using:
 
