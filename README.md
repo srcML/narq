@@ -4,17 +4,6 @@ Final project for 3460:635 Advanced Algorithms that utilizes the Rabin-Karp stri
 
 ### Application Usage
 
-__Basic Exection:__
-
-```
-narq -[naive|montecarlo|lasvegas] <needle.txt> <haystack.txt>
-```
-
-* The first argument provides the approach used to search for a pattern.
-* The second argument gives a text file where the needle or needles are read in.
-	* _Note: The naive approach only accepts one needle, while the Rabin-Karp Monte Carlo and Las Vegas approaches can accept multiple needles separated by a new line character._
-* The third argument is a text file whose content is the body of text to be searched.
-
 __Plagiarism Detection:__
 
 ```
