@@ -14,9 +14,6 @@
 
 std::string expectedInput = "narq [-copy] <original.txt> <copy.txt> <number of partitions>\n";
 
-//! @brief Executes visual tests for brute force and various Rabin Karp algorithms
-void debug();
-
 int main(int argc, const char* argv[])
 {
 	if (argc != 5) {
