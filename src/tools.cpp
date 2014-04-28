@@ -31,7 +31,7 @@ namespace narq
 		return -1;                 // Else pattern does not exist in the text
 	}
 
-	long rabinKarpLV(std::string needle, std::string haystack)
+	long rabinKarpMC(std::string needle, std::string haystack)
 	{
 		long long needleHash   = rhash(needle);
 		long long haystackHash = 0;
@@ -61,7 +61,7 @@ namespace narq
 		return -1; // Pattern does not exist in the text
 	}
 
-	long rabinKarpMC(std::string needle, std::string haystack)
+	long rabinKarpLV(std::string needle, std::string haystack)
 	{
 		long long needleHash   = rhash(needle);
 		long long haystackHash = 0;
@@ -87,7 +87,7 @@ namespace narq
 			// Check if hashes are equal
 			if ((i >= needle.size() - 1) && (haystackHash == needleHash))
 			{
-				// Monte Carlo addition: Check that strings are equal before returning.
+				// Las Vegas addition: Check that strings are equal before returning.
 				if (haystack.substr(i - needle.size() + 1, needle.size()) == needle)
 					return i - needle.size() + 1;
 			}
