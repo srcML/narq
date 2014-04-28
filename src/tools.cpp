@@ -138,7 +138,6 @@ namespace narq
 					if (hn[k] == haystackHash)
 						matches[k]++;
 				}
-
 			}
 		}
 		return matches;
