@@ -1,24 +1,15 @@
-BIN=bin
-SRC=src
-TEST=test/src
 CPPFLAGS=-Wall -I /src
 
-all: narq test
+all: narq
 
-$(BIN)/test.o: 
-	g++ $(CPPFLAGS) -c $(TEST)/test.cpp -o $(BIN)/test.o
+narq: main.o tools.o
+	g++ -o narq main.o tools.o
 
-narq: $(BIN)/main.o $(BIN)/tools.o
-	g++ -o $(BIN)/narq $(BIN)/main.o $(BIN)/tools.o
+main.o: main.cpp
+	g++ $(CPPFLAGS) -c main.cpp -o main.o
 
-$(BIN)/main.o: $(SRC)/main.cpp
-	g++ $(CPPFLAGS) -c $(SRC)/main.cpp -o $(BIN)/main.o
-
-$(BIN)/tools.o: $(SRC)/tools.cpp
-	g++ $(CPPFLAGS) -c $(SRC)/tools.cpp -o $(BIN)/tools.o
-
-test: $(BIN)/test.o $(BIN)/tools.o
-	g++ -o $(BIN)/test $(BIN)/test.o $(BIN)/tools.o
+tools.o: tools.cpp
+	g++ $(CPPFLAGS) -c tools.cpp -o tools.o
 
 clean: 
-	rm -r $(BIN)/*
+	rm -r main.o tools.o narq
